@@ -14,9 +14,30 @@ public class Libro {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @JsonProperty("title")
+    private String titulo;
+
+    @JsonProperty("authors")
+    @ElementCollection
+    private List<Autor> autores;
+
+    @JsonProperty("summaries")
+    @Column(length = 1000)
+    private String descripcion;
+
+    @JsonProperty("languages")
+    @ElementCollection
+    private List<String> idiomas;
+
+    @JsonProperty("download_count")
+    private Integer cantidadDescargas;
+
+    @JsonProperty("bookshelves")
+    @ElementCollection
+    private List<String> estanterias;
 
 
-   // Constructor vacío requerido por JPA y Jackson
+    // Constructor vacío requerido por JPA y Jackson
     public Libro() {}
 
 
