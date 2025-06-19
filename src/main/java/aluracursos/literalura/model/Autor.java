@@ -23,7 +23,7 @@ public class Autor {
     // Constructor vacío (requerido por JPA)
     public Autor() {}
 
-    
+
     public Long getId() {
         return id;
     }
