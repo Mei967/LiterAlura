@@ -1,5 +1,6 @@
 package aluracursos.literalura.model;
 
+import aluracursos.literalura.dto.AutorDTO;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 
@@ -22,6 +23,13 @@ public class Autor {
 
     // Constructor vacío (requerido por JPA)
     public Autor() {}
+
+    // ✅ Constructor desde AutorDTO (necesario para .map(Autor::new))
+    public Autor(AutorDTO dto) {
+        this.nombre = dto.nombre();
+        this.fechaDeNacimiento = dto.fechaDeNacimiento();
+        this.fechaDeMuerte = dto.fechaDeMuerte();
+    }
 
 
     public Long getId() {
@@ -54,5 +62,12 @@ public class Autor {
 
     public void setFechaDeMuerte(Integer fechaDeMuerte) {
         this.fechaDeMuerte = fechaDeMuerte;
+    }
+
+    @Override
+    public String toString() {
+        return "Autor: " + nombre +
+                " (Nacimiento: " + fechaDeNacimiento +
+                ", Muerte: " + (fechaDeMuerte != null ? fechaDeMuerte : "N/A") + ")";
     }
 }

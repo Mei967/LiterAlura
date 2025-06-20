@@ -1,6 +1,6 @@
 package aluracursos.literalura.model;
 
-
+import aluracursos.literalura.dto.LibroDTO;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 
@@ -18,7 +18,7 @@ public class Libro {
     private String titulo;
 
     @JsonProperty("authors")
-    @ElementCollection
+    @ManyToMany(cascade = CascadeType.ALL)
     private List<Autor> autores;
 
     @JsonProperty("summaries")
@@ -36,10 +36,25 @@ public class Libro {
     @ElementCollection
     private List<String> estanterias;
 
-
-    // Constructor vacío requerido por JPA y Jackson
+    // Constructor vacío requerido por JPA
     public Libro() {}
 
+    public Libro(LibroDTO dto) {
+        this.titulo = dto.titulo();
+        this.descripcion = dto.descripcion();
+        this.idiomas = dto.idiomas();
+        this.cantidadDescargas = dto.cantidadDescargas();
+        this.estanterias = dto.estanterias();
+
+        // Convertir la lista de AutorDTO a lista de Autor
+        this.autores = dto.autores().stream()
+                .map(Autor::new)
+                .toList();
+    }
+
+
+
+    // Getters y Setters
 
     public Long getId() {
         return id;
@@ -96,5 +111,13 @@ public class Libro {
     public void setEstanterias(List<String> estanterias) {
         this.estanterias = estanterias;
     }
+
+    @Override
+    public String toString() {
+        return "Libro: " + titulo +
+                ", Idiomas: " + idiomas +
+                ", Descargas: " + cantidadDescargas;
+    }
+
 }
 
