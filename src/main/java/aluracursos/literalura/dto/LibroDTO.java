@@ -1,29 +1,17 @@
 package aluracursos.literalura.dto;
 
-import aluracursos.literalura.model.Autor;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-
+import com.fasterxml.jackson.annotation.JsonAlias;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.util.List;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public record LibroDTO(
-        @JsonProperty("title")
-        String titulo,
-
-       @JsonProperty("authors")
-       List<AutorDTO> autores,
-
-       @JsonProperty("summaries")
-       String descripcion,
-
-       @JsonProperty("languages")
-        List<String> idiomas,
-
-       @JsonProperty("download_count")
-       Integer cantidadDescargas,
-
-       @JsonProperty("bookshelves")
-        List<String> estanterias) {
+        @JsonAlias("id") Long id,
+        @JsonAlias("title") String titulo,
+        @JsonAlias("authors") List<AutorDTO> autores,
+        @JsonAlias("languages") List<String> idiomas,
+        @JsonAlias("download_count") Integer descargas
+) {}
 
 
-}
+

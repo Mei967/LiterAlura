@@ -1,11 +1,9 @@
 package aluracursos.literalura.dto;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.util.List;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public record DatosRespuestaDTO(
-        @JsonProperty("results")
-        List<LibroDTO> resultados){
-
-}
+        List<LibroDTO> results
+) {}

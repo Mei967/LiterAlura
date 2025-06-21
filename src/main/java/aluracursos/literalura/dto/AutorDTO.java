@@ -1,19 +1,11 @@
 package aluracursos.literalura.dto;
 
-       import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonAlias;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-        public record AutorDTO(
-
-        @JsonProperty("name")
-                String nombre,
-
-       @JsonProperty("birth_year")
-       Integer fechaDeNacimiento,
-
-       @JsonProperty("death_year")
-       Integer fechaDeMuerte){
-
-
-        }
-
-
+@JsonIgnoreProperties(ignoreUnknown = true)
+public record AutorDTO(
+        @JsonAlias("name") String nombre,
+        @JsonAlias("birth_year") Integer nacimiento,
+        @JsonAlias("death_year") Integer fallecimiento
+) {}

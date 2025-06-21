@@ -1,73 +1,61 @@
 package aluracursos.literalura.model;
 
-import aluracursos.literalura.dto.AutorDTO;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
+import java.util.List;
 
 @Entity
-@Table(name = "autores")
 public class Autor {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @JsonProperty("name")
     private String nombre;
+    private Integer nacimiento;
+    private Integer fallecimiento;
 
-    @JsonProperty("birth_year")
-    private Integer fechaDeNacimiento;
+    @OneToMany(mappedBy = "autor", cascade = CascadeType.ALL)
+    private List<Libro> libros;
 
-    @JsonProperty("death_year")
-    private Integer fechaDeMuerte;
-
-    // Constructor vacío (requerido por JPA)
-    public Autor() {}
-
-    // ✅ Constructor desde AutorDTO (necesario para .map(Autor::new))
-    public Autor(AutorDTO dto) {
-        this.nombre = dto.nombre();
-        this.fechaDeNacimiento = dto.fechaDeNacimiento();
-        this.fechaDeMuerte = dto.fechaDeMuerte();
+    public Autor() {
     }
 
+    public Autor(String nombre, Integer nacimiento, Integer fallecimiento) {
+        this.nombre = nombre;
+        this.nacimiento = nacimiento;
+        this.fallecimiento = fallecimiento;
+    }
+
+    // Getters y setters
 
     public Long getId() {
         return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getNombre() {
         return nombre;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public Integer getNacimiento() {
+        return nacimiento;
     }
 
-    public Integer getFechaDeNacimiento() {
-        return fechaDeNacimiento;
+    public Integer getFallecimiento() {
+        return fallecimiento;
     }
 
-    public void setFechaDeNacimiento(Integer fechaDeNacimiento) {
-        this.fechaDeNacimiento = fechaDeNacimiento;
+    public List<Libro> getLibros() {
+        return libros;
     }
 
-    public Integer getFechaDeMuerte() {
-        return fechaDeMuerte;
-    }
-
-    public void setFechaDeMuerte(Integer fechaDeMuerte) {
-        this.fechaDeMuerte = fechaDeMuerte;
+    public void setLibros(List<Libro> libros) {
+        this.libros = libros;
     }
 
     @Override
     public String toString() {
-        return "Autor: " + nombre +
-                " (Nacimiento: " + fechaDeNacimiento +
-                ", Muerte: " + (fechaDeMuerte != null ? fechaDeMuerte : "N/A") + ")";
+        return "Autor: " + nombre + " ("
+                + nacimiento + " - "
+                + (fallecimiento != null ? fallecimiento : "vivo") + ")";
     }
 }
