@@ -63,13 +63,14 @@ Selecciona una opción:
 
 ---
 
-## 📸 Vista del Programa en Ejecución
+## 📸 Vistas del Programa en Ejecución
 
 ### 🧭 Menú principal
-![Menú principal]
+![Menú principal](https://raw.githubusercontent.com/Mei967/LiterAlura/main/menu-inicio.png)
 
 ### Lista de autores registrados
 ![Lista autores]
+
 ### Libros por idioma
 [Vista de libros por idioma](https://github.com/Mei967/LiterAlura/raw/main/libros-por-idioma.png)
 
