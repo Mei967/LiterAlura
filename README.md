@@ -72,7 +72,7 @@ Selecciona una opción:
 ![Lista de autores registrados](https://raw.githubusercontent.com/Mei967/LiterAlura/main/lista-autores-registrados.png)
 
 ### Libros por idioma
-[Vista de libros por idioma](https://raw.githubusercontent.com/Mei967/LiterAlura/main/libros-por-idioma.png)
+![Vista de libros por idioma](https://raw.githubusercontent.com/Mei967/LiterAlura/main/libros-por-idioma.png)
 
 ---
 
