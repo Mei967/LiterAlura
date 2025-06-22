@@ -3,6 +3,7 @@ package aluracursos.literalura.model;
 import jakarta.persistence.*;
 
 @Entity
+@Table(name = "libro")
 public class Libro {
 
     @Id
@@ -50,6 +51,11 @@ public class Libro {
 
     @Override
     public String toString() {
-        return "📖 " + titulo + " - " + idioma + " (" + descargas + " descargas)";
+        return "\n Título: " + titulo +
+                "\n Autor: " + autor.getNombre() +
+                "\n Idioma: " + idioma +
+                "\n Descargas: " + descargas;
+
     }
+
 }
