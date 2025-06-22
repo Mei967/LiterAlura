@@ -69,15 +69,12 @@ Selecciona una opción:
 ![Menú principal](https://raw.githubusercontent.com/Mei967/LiterAlura/main/menu-inicio.png)
 
 ### Lista de autores registrados
-![Lista autores]
+![Lista de autores registrados](https://raw.githubusercontent.com/Mei967/LiterAlura/main/lista-autores-registrados.png)
 
 ### Libros por idioma
 [Vista de libros por idioma](https://github.com/Mei967/LiterAlura/raw/main/libros-por-idioma.png)
 
-
-
-
-
+---
 
 ## 🗃️ Estructura del proyecto
 
