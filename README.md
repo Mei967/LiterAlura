@@ -66,8 +66,13 @@ Selecciona una opción:
 ## 📸 Vista del Programa en Ejecución
 
 ### 🧭 Menú principal
+![Menú principal]
 
-Este es el menú que aparece al iniciar la aplicación:
+### Lista de autores registrados
+![Lista autores]
+### Libros por idioma
+[Vista de libros por idioma](https://github.com/Mei967/LiterAlura/raw/main/libros-por-idioma.png)
+
 
 
 
