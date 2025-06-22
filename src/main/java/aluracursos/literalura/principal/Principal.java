@@ -44,22 +44,22 @@ public class Principal implements CommandLineRunner {
                         break;
                    case 2:
                        listarLibros();
-                //        break;
-                  //  case 3:
-                  //      listarAutores();
-                  //      break;
-                 //   case 4:
-                 //       listarAutoresVivosPorAnio();
-                 //       break;
-                 //   case 5:
-                 //       listarLibrosPorIdioma();
-                 //       break;
-                  //  case 6:
-                   //     buscarAutorPorNombre();
-                     //   break;
-                  //  case 7:
-                   //     top10LibrosDescargados();
-                   //     break;
+                       break;
+                   case 3:
+                       listarAutores();
+                        break;
+                   case 4:
+                        listarAutoresVivosPorAnio();
+                        break;
+                   case 5:
+                       listarLibrosPorIdioma();
+                       break;
+                   case 6:
+                       buscarAutorPorNombre();
+                     break;
+                   case 7:
+                      top10LibrosDescargados();
+                      break;
                     case 8:
                         System.out.println("Hasta pronto ");
                         break;
@@ -90,7 +90,7 @@ public class Principal implements CommandLineRunner {
     }
 
     private void buscarLibroPorTitulo() {
-        System.out.print("Ingrese el nombre del libro que desea buscar: ");
+        System.out.print("Ingresa el nombre del libro que deseas buscar: ");
         String tituloBuscado = teclado.nextLine();
 
         String json = consumo.obtenerDatos(URL_BASE + tituloBuscado.replace(" ", "%20"));
@@ -136,5 +136,102 @@ public class Principal implements CommandLineRunner {
             libros.forEach(System.out::println);
         }
     }
+
+    private void listarAutores() {
+        var autores = autorRepository.findAll();
+
+        if (autores.isEmpty()) {
+            System.out.println(" No hay autores registrados.");
+        } else {
+            System.out.println("\n Autores registrados:");
+            autores.forEach(autor -> {
+                System.out.println("\nAutor: " + autor.getNombre());
+                System.out.println("Nacimiento: " + autor.getNacimiento());
+                System.out.println("Fallecimiento: " +
+                        (autor.getFallecimiento() != null ? autor.getFallecimiento() : "Vivo"));
+            });
+        }
+    }
+
+    private void listarAutoresVivosPorAnio() {
+        System.out.print("Ingresa el año que quieres consultar: ");
+        try {
+            int anio = Integer.parseInt(teclado.nextLine());
+
+            var autores = autorRepository.autoresVivosEnAnio(anio);
+
+            if (autores.isEmpty()) {
+                System.out.println(" No hay autores vivos en ese año.");
+            } else {
+                System.out.println("\n Autores vivos en el año " + anio + ":");
+                autores.forEach(autor -> {
+                    System.out.println("\nAutor: " + autor.getNombre());
+                    System.out.println("Nacimiento: " + autor.getNacimiento());
+                    System.out.println("Fallecimiento: " +
+                            (autor.getFallecimiento() != null ? autor.getFallecimiento() : "Vivo"));
+                });
+            }
+
+        } catch (NumberFormatException e) {
+            System.out.println(" Año inválido. Intenta nuevamente.");
+        }
+    }
+
+    private void listarLibrosPorIdioma() {
+        System.out.println("""
+            Elige el idioma que deseas consultar:
+            en - Inglés
+            es - Español
+            fr - Francés
+            pt - Portugués
+            """);
+
+        System.out.print("Código del idioma: ");
+        String idioma = teclado.nextLine().trim().toLowerCase();
+
+        var libros = libroRepository.findByIdioma(idioma);
+
+        if (libros.isEmpty()) {
+            System.out.println(" No se encontraron libros en ese idioma.");
+        } else {
+            System.out.println("\n Libros en idioma '" + idioma + "':");
+            libros.forEach(System.out::println);
+        }
+    }
+
+    private void buscarAutorPorNombre() {
+        System.out.print("Ingresa el nombre del autor a buscar: ");
+        String nombre = teclado.nextLine().trim();
+
+        var autores = autorRepository.findByNombreContainingIgnoreCase(nombre);
+
+        if (autores.isEmpty()) {
+            System.out.println(" No se encontraron autores con ese nombre.");
+        } else {
+            System.out.println("\n️ Autores encontrados:");
+            autores.forEach(autor -> {
+                System.out.println("\nAutor: " + autor.getNombre());
+                System.out.println("Nacimiento: " + autor.getNacimiento());
+                System.out.println("Fallecimiento: " +
+                        (autor.getFallecimiento() != null ? autor.getFallecimiento() : "Vivo"));
+            });
+        }
+    }
+
+    private void top10LibrosDescargados() {
+        var libros = libroRepository.findTop10ByOrderByDescargasDesc();
+
+        if (libros.isEmpty()) {
+            System.out.println("📭 No hay libros registrados para mostrar el Top 10.");
+        } else {
+            System.out.println("\n Top 10 libros más descargados:");
+            int posicion = 1;
+            for (Libro libro : libros) {
+                System.out.println("\n" + posicion++ + ". " + libro);
+            }
+        }
+    }
+
+
 
 }
